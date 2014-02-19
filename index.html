@@ -7,13 +7,14 @@
 <style>
 
 #wrapper{
-height: 800px;
+/*height: 800px;*/
   width: 800px;
-  margin:0 10px;
+  margin:0 50px;
 }
 
+
 #chart svg {
-  height: 800px;
+  height: 700px;
   width: 800px;
 }
 
@@ -29,17 +30,36 @@ height: 800px;
   /*stroke: #000;*/
 }
 
-.tooltip{
-  position: absolute;
-  width: 200px;
-  height: 28px;
-  pointer-events: none;
+.nvtooltip.xy-tooltip{
+  font-family: 'Open Sans', serif;
+font-size: .8em;
+font-weight: 400;
 }
 
-.axis{
-font-family: 'PT Serif', serif;
+.nv-axislabel{
+font-family: 'Open Sans', serif;
 font-size: 1em;
+font-weight: 400;
+}
+
+
+.nv-legend-text{
+font-family: 'Open Sans', serif;
+font-size: .8em;
 font-weight: 300;
+}
+
+
+.tick text{
+font-family: 'Open Sans', serif;
+font-size: .8em;
+font-weight: 300;
+}
+
+.nv-axisMaxMin text{
+  font-family: 'Open Sans', serif;
+font-size: .8em;
+font-weight: 400;
 }
 
 
@@ -47,31 +67,36 @@ h1{
 font-family: 'PT Serif', sans-serif;
 font-size: 3em;
 font-weight: 400;
-margin-left:20px;
+margin-left:60px;
 }
 
 p{
 font-family: 'PT Serif', serif;
 font-size: 1.4em;
 font-weight: 300;
+margin-left: 60px;
+
 }
 
 </style>
 <body>
 
 <div id ="wrapper">
-<h1 >How HIV afflicts the country's poorest counties</h1>
+<h1 >How HIV afflicts the Deep South</h1>
 <div id="chart">
 <svg></svg>
 </div>
 
-<p>The relationship between HIV and income is not clear cut. Among northern states, median household incomes </p>
-
+<p>The Deep South contains some of the nation's poorest counties and also some of the most HIV-prone. 
+Southern states have the highest rate of new infections and the highest rate of AIDS deaths, with African-Americans hit hardest. 
+Poverty plays a role, yet similar counties in the Midwest do not suffer to the same extent. The recipe for 
+this southern epidemic is a combination of poor healthcare access, 
+isolated communities, and a still-paralyzing sense of stigma. </p>
 </div>
 
 <link href='{{ site.baseurl }}/nv.d3.css' rel='stylesheet' type='text/css'>
 
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:700,300' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=PT+Serif:400,400italic' rel='stylesheet' type='text/css'>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -96,7 +121,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
 
 // });
 
-var myData = [{key:"Deep South", values:[]},{key:"NY/New England", values:[]}, {key:"Midwest", values:[]} ];
+var myData = [{key:"Deep South (on/off)", values:[]},{key:"NY/New England (on/off)", values:[]}, {key:"Midwest (on/off)", values:[]} ];
 
 hivdata.forEach(function(d){
   d.x = +d.medianhouseholdincome;
@@ -241,9 +266,9 @@ nv.addGraph(function() {
   });
  
   //Axis settings
-  chart.xAxis.tickFormat(d3.format('.02f')) 
+  chart.xAxis.tickFormat(d3.format(',f')) 
         .axisLabel('Median household income');
-  chart.yAxis.tickFormat(d3.format('.02f'))
+  chart.yAxis.tickFormat(d3.format('f'))
         .axisLabel('HIV rate per 100,000');
 
 
