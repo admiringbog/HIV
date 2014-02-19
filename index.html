@@ -6,11 +6,11 @@
  <meta name="description" content="hivscatter for fun">
 <style>
 
-/*#chart{
+#wrapper{
 height: 800px;
   width: 800px;
   margin:0 10px;
-}*/
+}
 
 #chart svg {
   height: 800px;
@@ -58,12 +58,16 @@ font-weight: 300;
 
 </style>
 <body>
+
+<div id ="wrapper">
 <h1 >How HIV afflicts the country's poorest counties</h1>
 <div id="chart">
 <svg></svg>
 </div>
 
 <p>The relationship between HIV and income is not clear cut. Among northern states, median household incomes </p>
+
+</div>
 
 <link href='{{ site.baseurl }}/nv.d3.css' rel='stylesheet' type='text/css'>
 
