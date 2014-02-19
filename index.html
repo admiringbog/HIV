@@ -6,15 +6,17 @@
  <meta name="description" content="hivscatter for fun">
 <style>
 
+/*#chart{
+height: 800px;
+  width: 800px;
+  margin:0 10px;
+}*/
+
 #chart svg {
   height: 800px;
   width: 800px;
 }
 
-
-body {
-  font: 11px sans-serif;
-}
 
 .axis path,
 .axis line {
@@ -27,7 +29,7 @@ body {
   /*stroke: #000;*/
 }
 
-.tooltip {
+.tooltip{
   position: absolute;
   width: 200px;
   height: 28px;
@@ -48,15 +50,20 @@ font-weight: 400;
 margin-left:20px;
 }
 
-
+p{
+font-family: 'PT Serif', serif;
+font-size: 1.4em;
+font-weight: 300;
+}
 
 </style>
 <body>
-
+<h1 >How HIV afflicts the country's poorest counties</h1>
 <div id="chart">
-<h1 >How HIV rates correlate with local income</h1>
-  <svg></svg>
+<svg></svg>
 </div>
+
+<p>The relationship between HIV and income is not clear cut. Among northern states, median household incomes </p>
 
 <link href='{{ site.baseurl }}/nv.d3.css' rel='stylesheet' type='text/css'>
 
@@ -85,18 +92,34 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
 
 // });
 
-var myData = [{key:"Deep South", values:[]},{key:"NY/New England", values:[]}];
+var myData = [{key:"Deep South", values:[]},{key:"NY/New England", values:[]}, {key:"Midwest", values:[]} ];
 
 hivdata.forEach(function(d){
   d.x = +d.medianhouseholdincome;
   d.y = +d.rate;
   d.key = d.region;
 
-  if(d.region == "SOUTH"){
+
+switch(d.key)
+{
+case "SOUTH":
       myData[0].values.push(d)
-  }else{
-    myData[1].values.push(d)
-  }
+  break;
+case "NORTH":
+      myData[1].values.push(d)
+  break;
+  case "MIDWEST":
+      myData[2].values.push(d)
+  break;
+default:
+break;
+}
+
+  // if(d.region == "SOUTH"){
+  //     myData[0].values.push(d)
+  // }else {
+  //   myData[1].values.push(d)
+  // }
 });
 
 
@@ -218,6 +241,9 @@ nv.addGraph(function() {
         .axisLabel('Median household income');
   chart.yAxis.tickFormat(d3.format('.02f'))
         .axisLabel('HIV rate per 100,000');
+
+
+    chart.yDomain([0,1300]);
  
   //We want to show shapes other than circles.
   chart.scatter.onlyCircles(true);
